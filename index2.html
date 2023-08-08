@@ -18,43 +18,89 @@
 
     <script>
         const DemoApp = {
-            initData: '',
-            initDataUnsafe: {},
+            initData: Telegram.WebApp.initData || '',
+            initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+            MainButton: Telegram.WebApp.MainButton,
+
+            init(options) {
+                document.body.style.visibility = '';
+                Telegram.WebApp.ready();
+                Telegram.WebApp.MainButton.setParams({
+                    text: 'CLOSE WEBVIEW',
+                    is_visible: true
+                }).onClick(DemoApp.close);
+            },
+
+            expand() {
+                Telegram.WebApp.expand();
+            },
+
+            close() {
+                Telegram.WebApp.close();
+            },
+
+            // Implement your other functions and methods here
             
-            // Implement your other properties and methods here
-            
-            sendText: function(spam) {
-                const textField = document.querySelector('#text_field');
-                const text = textField.value;
-                if (!text.length) {
-                    return textField.focus();
-                }
-                if (text.length > 4096) {
-                    return alert('Text is too long');
-                }
+            // ... Your other functions ...
 
-                const repeat = spam ? 10 : 1;
-                for (let i = 0; i < repeat; i++) {
-                    this.Telegram.WebApp.sendData(text);
-                }
-            },
-
-            expand: function() {
-                this.Telegram.WebApp.expand();
-            },
-
-            close: function() {
-                this.Telegram.WebApp.close();
-            },
-
-            // Implement your other methods here
+            apiRequest(method, data, onCallback) {
+                // Your API request implementation
+            }
         };
+
+        // Additional components
+
+        const DemoAppMenu = {
+            init() {
+                DemoApp.init();
+                document.body.classList.add('gray');
+                Telegram.WebApp.setHeaderColor('secondary_bg_color');
+            }
+        };
+
+        const DemoAppInitData = {
+            init() {
+                DemoApp.init();
+                Telegram.WebApp.onEvent('themeChanged', function() {
+                    document.getElementById('theme_data').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
+                });
+                document.getElementById('webview_data').innerHTML = JSON.stringify(DemoApp.initDataUnsafe, null, 2);
+                document.getElementById('theme_data').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
+                DemoApp.checkInitData();
+            }
+        };
+
+        const DemoAppViewport = {
+            init() {
+                DemoApp.init();
+                Telegram.WebApp.onEvent('viewportChanged', DemoAppViewport.setData);
+                DemoAppViewport.setData();
+            },
+            setData() {
+                document.querySelector('.viewport-border')
+                    .setAttribute('text', window.innerWidth + ' x ' + round(Telegram.WebApp.viewportHeight, 2))
+                document.querySelector('.viewport-stable_border')
+                    .setAttribute('text', window.innerWidth + ' x ' + round(Telegram.WebApp.viewportStableHeight, 2) +
+                        ' | is_expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false'));
+            }
+        };
+
+        function byteLength(str) {
+            // Implementation for byte length calculation
+        }
+
+        function round(val, d) {
+            // Implementation for rounding numbers
+        }
     </script>
 
     <script>
-        // Call DemoApp.init() when the page is ready
+        // Call the specific component's init() function when the page is ready
         window.addEventListener('load', function() {
-            DemoApp.init();
+            DemoAppMenu.init();
+            // Or DemoAppInitData.init();
+            // Or DemoAppViewport.init();
+            // Call the appropriate init() based on your needs
         });
     </script>
 </body>
