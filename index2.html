@@ -18,61 +18,36 @@
 
     <script>
         const DemoApp = {
-
-            // Simulate Telegram.WebApp object for demonstration purposes
-            Telegram: {
-                WebApp: {
-                    initData: '',
-                    initDataUnsafe: {},
-                    MainButton: {
-                        isVisible: true,
-                        setParams: function(params) {
-                            return this;
-                        },
-                        onClick: function(callback) {
-                            // Simulate button click
-                            callback();
-                        },
-                        hide: function() {
-                            this.isVisible = false;
-                        },
-                        show: function() {
-                            this.isVisible = true;
-                        }
-                    },
-                    ready: function() {},
-                    expand: function() {},
-                    close: function() {},
-                    sendData: function(data) {},
-                    showAlert: function(message) {
-                        alert(message);
-                    },
-                    showConfirm: function(message) {
-                        if (confirm(message)) {
-                            alert('Confirmed');
-                        } else {
-                            alert('Cancelled');
-                        }
-                    },
-                    showPopup: function(options, callback) {
-                        // Simulate popup
-                        const buttonId = prompt('Select button: delete, faq, or cancel');
-                        callback(buttonId);
-                    },
-                    showScanQrPopup: function(options, callback) {
-                        // Simulate QR scan
-                        const qrData = prompt('Scan QR code:');
-                        callback(qrData);
-                    },
-                    openLink: function(link) {
-                        window.open(link, '_blank');
-                    },
-                    readTextFromClipboard: function(callback) {
-                        const clipText = prompt('Enter clipboard text:');
-                        callback(clipText);
-                    }
+            initData: '',
+            initDataUnsafe: {},
+            
+            // Implement your other properties and methods here
+            
+            sendText: function(spam) {
+                const textField = document.querySelector('#text_field');
+                const text = textField.value;
+                if (!text.length) {
+                    return textField.focus();
                 }
-            }
+                if (text.length > 4096) {
+                    return alert('Text is too long');
+                }
+
+                const repeat = spam ? 10 : 1;
+                for (let i = 0; i < repeat; i++) {
+                    this.Telegram.WebApp.sendData(text);
+                }
+            },
+
+            expand: function() {
+                this.Telegram.WebApp.expand();
+            },
+
+            close: function() {
+                this.Telegram.WebApp.close();
+            },
+
+            // Implement your other methods here
         };
     </script>
 
