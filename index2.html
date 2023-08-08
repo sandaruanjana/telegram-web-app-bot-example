@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp Demo</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <div id="webview_data_status" class="status_need"></div>
+    <input type="text" id="text_field" placeholder="Enter text">
+    <button id="btn_status" onclick="DemoApp.sendText(false)">Send Text</button>
+    <button id="btn_expand" onclick="DemoApp.expand()">Expand</button>
+    <button id="btn_close" onclick="DemoApp.close()">Close</button>
+    <!-- Add more HTML elements as needed for your UI -->
+
+    <script>
+        const DemoApp = {
+
+            // Simulate Telegram.WebApp object for demonstration purposes
+            Telegram: {
+                WebApp: {
+                    initData: '',
+                    initDataUnsafe: {},
+                    MainButton: {
+                        isVisible: true,
+                        setParams: function(params) {
+                            return this;
+                        },
+                        onClick: function(callback) {
+                            // Simulate button click
+                            callback();
+                        },
+                        hide: function() {
+                            this.isVisible = false;
+                        },
+                        show: function() {
+                            this.isVisible = true;
+                        }
+                    },
+                    ready: function() {},
+                    expand: function() {},
+                    close: function() {},
+                    sendData: function(data) {},
+                    showAlert: function(message) {
+                        alert(message);
+                    },
+                    showConfirm: function(message) {
+                        if (confirm(message)) {
+                            alert('Confirmed');
+                        } else {
+                            alert('Cancelled');
+                        }
+                    },
+                    showPopup: function(options, callback) {
+                        // Simulate popup
+                        const buttonId = prompt('Select button: delete, faq, or cancel');
+                        callback(buttonId);
+                    },
+                    showScanQrPopup: function(options, callback) {
+                        // Simulate QR scan
+                        const qrData = prompt('Scan QR code:');
+                        callback(qrData);
+                    },
+                    openLink: function(link) {
+                        window.open(link, '_blank');
+                    },
+                    readTextFromClipboard: function(callback) {
+                        const clipText = prompt('Enter clipboard text:');
+                        callback(clipText);
+                    }
+                }
+            }
+        };
+    </script>
+
+    <script>
+        // Call DemoApp.init() when the page is ready
+        window.addEventListener('load', function() {
+            DemoApp.init();
+        });
+    </script>
+</body>
+</html>
