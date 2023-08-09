@@ -66,8 +66,8 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
           tg.MainButton.hide() //hide the button
        }
        else{ //otherwise
+tg.showAlert(window.Telegram.WebApp.initDataUnsafe.user);
           tg.MainButton.show() //show
-          Telegram.WebApp.showAlert(window.Telegram.WebApp.initDataUnsafe.username);
        }
     });
 
