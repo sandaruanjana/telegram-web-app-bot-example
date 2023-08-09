@@ -51,9 +51,9 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
     tg.expand(); // expand to the whole window
 
     tg.MainButton.text = "Changed Text"; //change button text
-    tg.MainButton.setText("VIEW MARKET"); //change button text otherwise
-    tg.MainButton.textColor = "#FFFFFF"; //change button text color
-    tg.MainButton.color = "#31B545"; //change button background color
+    tg.MainButton.setText("Changed Text1"); //change button text otherwise
+    tg.MainButton.textColor = "#F55353"; //change button text color
+    tg.MainButton.color = "#008000"; //change button background color
     
     //this is how all parameters are changed
     //tg.MainButton.setParams({"color": "#143F6B"}); 
@@ -90,9 +90,13 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
     let usercard = document.getElementById("usercard"); //get the usercard block
 
     let profName = document.createElement('p'); //create a paragraph
-    profName.innerText = `${tg.initDataUnsafe.user.first_name}
-    ${tg.initDataUnsafe.user.last_name}
-    ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
+
+    profName.innerText = window.Telegram.WebApp.initDataUnsafe.user
+
+   //  profName.innerText = `${tg.initDataUnsafe.user.first_name}
+   //  ${tg.initDataUnsafe.user.last_name}
+   //  ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
+
     //select the first name, "last name", through a dash username and language code
     usercard.appendChild(profName); //add
 
