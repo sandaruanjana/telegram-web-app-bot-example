@@ -91,9 +91,9 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
 
     let profName = document.createElement('p'); //create a paragraph
 
-    Telegram.WebApp.showAlert(window.Telegram.WebApp.initDataUnsafe);
+    Telegram.WebApp.showAlert(window.Telegram.WebApp.initDataUnsafe.username);
 
-    profName.innerText = window.Telegram.WebApp.initDataUnsafe.user.username
+    profName.innerText = window.Telegram.WebApp.initDataUnsafe
 
    //  profName.innerText = `${tg.initDataUnsafe.user.first_name}
    //  ${tg.initDataUnsafe.user.last_name}
