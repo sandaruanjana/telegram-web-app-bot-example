@@ -84,6 +84,7 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
     });
 
     Telegram.WebApp.onEvent('mainButtonClicked', function(){
+      Telegram.WebApp.showAlert("works");
        tg.sendData("some string that we need to send");
        // when clicking on the main button, we send data in string form
     });
