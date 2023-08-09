@@ -1,108 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram WebApp Demo</title>
-    <style>
-        /* Add your CSS styles here */
-    </style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+      body{
+         color: var(--tg-theme-text-color);
+         background: var(--tg-theme-bg-color);
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         font-size: 18px;
+      }
+
+      .hint{
+         color: var(--tg-theme-hint-color);
+      }
+
+      .link{
+         color: var(--tg-theme-link-color);
+      }
+
+      .button{
+         background: var(--tg-theme-button-color);
+         color: var(--tg-theme-button-text-color);
+         border: none;
+         font-size: 18px;
+      }
+
+      .button:not(:last-child){
+         margin-bottom: 20px
+      }
+
+      #usercard{
+         text-align: center;
+      }
+</style>
 </head>
 <body>
-    <div id="webview_data_status" class="status_need"></div>
-    <input type="text" id="text_field" placeholder="Enter text">
-    <button id="btn_status" onclick="DemoApp.sendText(false)">Send Text</button>
-    <button id="btn_expand" onclick="DemoApp.expand()">Expand</button>
-    <button id="btn_close" onclick="DemoApp.close()">Close</button>
-    <!-- Add more HTML elements as needed for your UI -->
+<div id="usercard"></div>
+<p>Just text</p>
+<a class="link" href="https://mihailgok.ru">Link</a>
+<p class="hint">Some little hint</p>
+<button id="btn" class="button">Show/Hide Main Button</button>
+<button id="btnED" class="button">Enable/Disable Main Button</button>
+<script>
+let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
 
-    <script>
-        const DemoApp = {
-            initData: Telegram.WebApp.initData || '',
-            initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
-            MainButton: Telegram.WebApp.MainButton,
+   tg.expand(); //расширяем на все окно  
 
-            init(options) {
-                document.body.style.visibility = '';
-                Telegram.WebApp.ready();
-                Telegram.WebApp.MainButton.setParams({
-                    text: 'CLOSE WEBVIEW',
-                    is_visible: true
-                }).onClick(DemoApp.close);
-            },
+   tg.MainButton.text = "Changed Text"; //изменяем текст кнопки 
+   tg.MainButton.setText("Changed Text1"); //изменяем текст кнопки иначе
+   tg.MainButton.textColor = "#F55353"; //изменяем цвет текста кнопки
+   tg.MainButton.color = "#143F6B"; //изменяем цвет бэкграунда кнопки
+   tg.MainButton.setParams({"color": "#143F6B"}); //так изменяются все параметры
 
-            expand() {
-                Telegram.WebApp.showAlert("ssss");
-                Telegram.WebApp.expand();
-            },
+   let btn = document.getElementById("btn"); //получаем кнопку скрыть/показать 
 
-            close() {
-                Telegram.WebApp.close();
-            },
+   btn.addEventListener('click', function(){ //вешаем событие на нажатие html-кнопки
+      if (tg.MainButton.isVisible){ //если кнопка показана 
+         tg.MainButton.hide() //скрываем кнопку 
+      }
+      else{ //иначе
+         tg.MainButton.show() //показываем 
+      }
+   });
 
-            // Implement your other functions and methods here
-            
-            // ... Your other functions ...
+   let btnED = document.getElementById("btnED"); //получаем кнопку активировать/деактивировать
+   btnED.addEventListener('click', function(){ //вешаем событие на нажатие html-кнопки
+      if (tg.MainButton.isActive){ //если кнопка показана 
+         tg.MainButton.setParams({"color": "#E0FFFF"}); //меняем цвет
+         tg.MainButton.disable() //скрываем кнопку 
+      }
+      else{ //иначе
+         tg.MainButton.setParams({"color": "#143F6B"}); //меняем цвет
+         tg.MainButton.enable() //показываем 
+      }
+   });
 
-            apiRequest(method, data, onCallback) {
-                // Your API request implementation
-            }
-        };
+   Telegram.WebApp.onEvent('mainButtonClicked', function(){
+      tg.sendData("some string that we need to send"); 
+      //при клике на основную кнопку отправляем данные в строковом виде
+   });
 
-        // Additional components
 
-        const DemoAppMenu = {
-            init() {
-                DemoApp.init();
-                document.body.classList.add('gray');
-                Telegram.WebApp.setHeaderColor('secondary_bg_color');
-            }
-        };
+   let usercard = document.getElementById("usercard"); //получаем блок usercard 
 
-        const DemoAppInitData = {
-            init() {
-                DemoApp.init();
-                Telegram.WebApp.onEvent('themeChanged', function() {
-                    document.getElementById('theme_data').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
-                });
-                document.getElementById('webview_data').innerHTML = JSON.stringify(DemoApp.initDataUnsafe, null, 2);
-                document.getElementById('theme_data').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
-                DemoApp.checkInitData();
-            }
-        };
+   let profName = document.createElement('p'); //создаем параграф
+   profName.innerText = `${tg.initDataUnsafe.user.first_name}
+   ${tg.initDataUnsafe.user.last_name}
+   ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
+   //выдем имя, "фамилию", через тире username и код языка
+   usercard.appendChild(profName); //добавляем 
 
-        const DemoAppViewport = {
-            init() {
-                DemoApp.init();
-                Telegram.WebApp.onEvent('viewportChanged', DemoAppViewport.setData);
-                DemoAppViewport.setData();
-            },
-            setData() {
-                document.querySelector('.viewport-border')
-                    .setAttribute('text', window.innerWidth + ' x ' + round(Telegram.WebApp.viewportHeight, 2))
-                document.querySelector('.viewport-stable_border')
-                    .setAttribute('text', window.innerWidth + ' x ' + round(Telegram.WebApp.viewportStableHeight, 2) +
-                        ' | is_expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false'));
-            }
-        };
+   let userid = document.createElement('p'); //создаем еще параграф 
+   userid.innerText = `${tg.initDataUnsafe.user.id}`; //показываем user_id
+   usercard.appendChild(userid); //добавляем
 
-        function byteLength(str) {
-            // Implementation for byte length calculation
-        }
 
-        function round(val, d) {
-            // Implementation for rounding numbers
-        }
-    </script>
-
-    <script>
-        // Call the specific component's init() function when the page is ready
-        window.addEventListener('load', function() {
-            DemoAppMenu.init();
-            // Or DemoAppInitData.init();
-            // Or DemoAppViewport.init();
-            // Call the appropriate init() based on your needs
-        });
-    </script>
+   //работает только в attachment menu
+   // let pic = document.createElement('img'); //создаем img
+   // pic.src = tg.initDataUnsafe.user.photo_url; //задаём src 
+   // usercard.appendChild(pic); //добавляем элемент в карточку 
+</script>
 </body>
 </html>
