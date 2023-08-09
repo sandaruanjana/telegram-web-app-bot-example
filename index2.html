@@ -51,7 +51,8 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
     tg.expand(); // expand to the whole window
     tg.BackButton.show()
 
-    tg.MainButton.text = "Changed Text"; //change button text
+    //change button text
+   //  tg.MainButton.text = "Changed Text"; 
     tg.MainButton.setText("VIEW MARKET"); //change button text otherwise
     tg.MainButton.textColor = "#FFFFFF"; //change button text color
     tg.MainButton.color = "#008000"; //change button background color
@@ -77,7 +78,7 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
           tg.MainButton.disable() //hide the button
        }
        else{ //otherwise
-          tg.MainButton.setParams({"color": "#143F6B"}); //change color
+          tg.MainButton.setParams({"color": "#31B545"}); //change color
           tg.MainButton.enable() //show
        }
     });
