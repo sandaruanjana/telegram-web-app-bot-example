@@ -52,7 +52,7 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
     tg.BackButton.show()
 
     tg.MainButton.text = "Changed Text"; //change button text
-    tg.MainButton.setText("Changed Text1"); //change button text otherwise
+    tg.MainButton.setText("VIEW MARKET"); //change button text otherwise
     tg.MainButton.textColor = "#FFFFFF"; //change button text color
     tg.MainButton.color = "#008000"; //change button background color
     
@@ -67,6 +67,7 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
        }
        else{ //otherwise
           tg.MainButton.show() //show
+          Telegram.WebApp.showAlert(window.Telegram.WebApp.initDataUnsafe.username);
        }
     });
 
