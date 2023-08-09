@@ -49,10 +49,11 @@
 let tg = window.Telegram.WebApp; //get the telegram webapp object
 
     tg.expand(); // expand to the whole window
+    tg.BackButton.show()
 
     tg.MainButton.text = "Changed Text"; //change button text
     tg.MainButton.setText("Changed Text1"); //change button text otherwise
-    tg.MainButton.textColor = "#F55353"; //change button text color
+    tg.MainButton.textColor = "#FFFFFF"; //change button text color
     tg.MainButton.color = "#008000"; //change button background color
     
     //this is how all parameters are changed
