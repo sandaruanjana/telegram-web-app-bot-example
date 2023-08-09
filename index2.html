@@ -92,13 +92,11 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
 
     let profName = document.createElement('p'); //create a paragraph
 
-    Telegram.WebApp.showAlert(window.Telegram.WebApp.initDataUnsafe.username);
+   //  profName.innerText = window.Telegram.WebApp.initDataUnsafe
 
-    profName.innerText = window.Telegram.WebApp.initDataUnsafe
-
-   //  profName.innerText = `${tg.initDataUnsafe.user.first_name}
-   //  ${tg.initDataUnsafe.user.last_name}
-   //  ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
+    profName.innerText = `${tg.initDataUnsafe.user.first_name}
+    ${tg.initDataUnsafe.user.last_name}
+    ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
 
     //select the first name, "last name", through a dash username and language code
     usercard.appendChild(profName); //add
