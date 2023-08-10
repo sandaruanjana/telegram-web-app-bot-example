@@ -48,8 +48,9 @@
 <script>
 let tg = window.Telegram.WebApp; //get the telegram webapp object
 
-    tg.expand(); // expand to the whole window
+    //tg.expand(); // expand to the whole window
     tg.BackButton.show()
+    tg.enableClosingConfirmation()
 
     //change button text
    //  tg.MainButton.text = "Changed Text"; 
