@@ -90,6 +90,10 @@ let tg = window.Telegram.WebApp; //get the telegram webapp object
        // when clicking on the main button, we send data in string form
     });
 
+    Telegram.WebApp.onEvent('popupClosed', function(){
+      Telegram.WebApp.showAlert("works");
+    });
+
 
     let usercard = document.getElementById("usercard"); //get the usercard block
 
